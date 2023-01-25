@@ -19,6 +19,11 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    //developmentOnly 'org.springdoc:springdoc-openapi-ui:1.6.14'
+    developmentOnly 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.+'
+    //implementation 'io.springfox:springfox-boot-starter:3.+'
+    //implementation 'io.springfox:springfox-swagger-ui:3.+'
 }
 
 tasks.named('test') {

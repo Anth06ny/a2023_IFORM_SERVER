@@ -1,16 +1,38 @@
 package com.example.a2023_iform_server.rest;
 
 import com.example.a2023_iform_server.model.bean.StudentBean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MyRestController {
 
-    int compteur =  0;
+    int compteur = 0;
     private StudentBean saveStudent = null;
 
+    /* -------------------------------- */
+    // EXO POST
+    /* -------------------------------- */
+
+    //http://localhost:8080/increment
+//Json Attendu : {"name": "toto", "note": 12}
+    @PostMapping("/increment")
+    public StudentBean increment(@RequestBody StudentBean student) {
+        System.out.println("/increment : " + student.getName() + " : " + student.getNote());
+
+        student.setNote(student.getNote() + 1);
+
+        return student;
+    }
+
+    //http://localhost:8080/receiveStudent
+//Json Attendu : {"name": "toto", "note": 12}
+    @PostMapping("/receiveStudent")
+    public void receiveStudent(@RequestBody StudentBean student) {
+        System.out.println("/receiveStudent : " + student.getName() + " : " + student.getNote());
+
+        //traitement, mettre en base…
+        //Retourner d'autres données
+    }
 
     /* -------------------------------- */
     // Mini Projet SaveStudent
@@ -18,20 +40,19 @@ public class MyRestController {
 
     //http://localhost:8080/saveStudent?nom=toto&note=12
     @GetMapping("/saveStudent")
-    public void saveStudent(String nom, @RequestParam(defaultValue = "0") Integer note)  {
+    public void saveStudent(String nom, @RequestParam(defaultValue = "0") Integer note) {
         System.out.println("/saveStudent nom=#" + nom + "# note=" + note);
 
-        if(nom == null) {
+        if (nom == null) {
             saveStudent = null;
-        }
-        else {
+        } else {
             saveStudent = new StudentBean(nom, note);
         }
     }
 
     //http://localhost:8080/loadStudent
     @GetMapping("/loadStudent")
-    public StudentBean loadStudent()  {
+    public StudentBean loadStudent() {
         System.out.println("/loadStudent");
 
         return saveStudent;
@@ -45,7 +66,7 @@ public class MyRestController {
     @GetMapping("/test")
     public String helloworld() {
         System.out.println("/test");
-                         compteur++;
+        compteur++;
         return "helloworld +" + compteur;
     }
 
@@ -89,7 +110,6 @@ public class MyRestController {
 
         return Math.max(p1, p2);
     }
-
 
 
 //    //http://localhost:8080/max?p1=5&p2=6
