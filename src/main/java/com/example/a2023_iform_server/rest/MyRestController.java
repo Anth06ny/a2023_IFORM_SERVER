@@ -2,18 +2,62 @@ package com.example.a2023_iform_server.rest;
 
 import com.example.a2023_iform_server.model.bean.StudentBean;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MyRestController {
 
+    int compteur =  0;
+    private StudentBean saveStudent = null;
+
+
+    /* -------------------------------- */
+    // Mini Projet SaveStudent
+    /* -------------------------------- */
+
+    //http://localhost:8080/saveStudent?nom=toto&note=12
+    @GetMapping("/saveStudent")
+    public void saveStudent(String nom, @RequestParam(defaultValue = "0") Integer note)  {
+        System.out.println("/saveStudent nom=#" + nom + "# note=" + note);
+
+        if(nom == null) {
+            saveStudent = null;
+        }
+        else {
+            saveStudent = new StudentBean(nom, note);
+        }
+    }
+
+    //http://localhost:8080/loadStudent
+    @GetMapping("/loadStudent")
+    public StudentBean loadStudent()  {
+        System.out.println("/loadStudent");
+
+        return saveStudent;
+    }
+
+    /* -------------------------------- */
+    // Exo GET
+    /* -------------------------------- */
+
     //http://localhost:8080/test
     @GetMapping("/test")
     public String helloworld() {
         System.out.println("/test");
-
-        return "helloworld";
+                         compteur++;
+        return "helloworld +" + compteur;
     }
+
+
+    //http://localhost:8080/boulangerie?nbCroissant=3&nbSandwich=1
+    @GetMapping("/boulangerie")
+    public double boulangerie(@RequestParam(defaultValue = "0") int nbCroissant, @RequestParam(defaultValue = "0") int nbSandwich) {
+        System.out.println("/boulangerie nbCroissant=#" + nbCroissant + "# nbSandwich=" + nbSandwich);
+
+        return nbCroissant * 0.95 + nbSandwich * 4;
+    }
+
 
     //http://localhost:8080/getStudent
     @GetMapping("/getStudent")
@@ -24,6 +68,7 @@ public class MyRestController {
     }
 
     //http://localhost:8080/createStudent?nom=bob&note=12
+    //http://86.73.100.219:8080/createStudent?nom=bob&note=12
     @GetMapping("/createStudent")
     public StudentBean createStudent(String nom, int note) throws Exception {
         System.out.println("/createStudent nom=#" + nom + "# note=" + note);
@@ -36,15 +81,16 @@ public class MyRestController {
     public int max(Integer p1, Integer p2) {
         System.out.println("/max p1=#" + p1 + "# p2=" + p2);
 
-        if(p1 == null){
-             return p2;
-        }
-        else if(p2 == null){
-             return p1;
+        if (p1 == null) {
+            return p2;
+        } else if (p2 == null) {
+            return p1;
         }
 
-        return Math.max(p1,p2);
+        return Math.max(p1, p2);
     }
+
+
 
 //    //http://localhost:8080/max?p1=5&p2=6
 //    @GetMapping("/max")
