@@ -1,6 +1,8 @@
 package com.example.a2023_iform_server.rest;
 
 import com.example.a2023_iform_server.model.bean.PlaneBean;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,6 +27,7 @@ public class AirportAPI {
     //http://localhost:8080/airport/nextplace
     @PostMapping("/park")
     public int park(@RequestBody PlaneBean plane, Integer position) {
+
         System.out.println("/park plane=" + plane + "\nposition=" + position);
 
         //Controle
