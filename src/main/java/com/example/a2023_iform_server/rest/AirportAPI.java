@@ -28,14 +28,45 @@ public class AirportAPI {
         System.out.println("/park plane=" + plane + "\nposition=" + position);
 
         //Controle
-        if (tab[position] != null) {
+        if(position == null || position <0|| position >= tab.length) {
+            return 216;
+        }
+        else if (tab[position] != null) {
             //Position déjà prise
             return 215;
+        }
+        //Données reçus incomplètes
+        else if(plane == null || plane.getName() == null || plane.getId() == null){
+            return 214;
         }
 
         tab[position] = plane;
 
         return 200;
+    }
+
+    @GetMapping("/takeoff")
+    public int takeoff(Integer position){
+        System.out.println("/takeoff position=" + position);
+
+        //Controle
+        if(position == null || position <0|| position >= tab.length) {
+            return 216;
+        }
+        else if (tab[position] == null) {
+            //Position vide
+            return 215;
+        }
+        tab[position] = null;
+
+        return 200;
+    }
+
+    @GetMapping("/state")
+    public PlaneBean[] state(){
+        System.out.println("/state");
+
+        return tab;
     }
 
     //Méthode qui permet de réinitialiser les données entre 2 tests
