@@ -13,13 +13,13 @@ public class MyRestController {
     // EXO POST
     /* -------------------------------- */
 
-    //http://localhost:8080/increment
+    //http://localhost:8080/increment?incrementationValue=5
 //Json Attendu : {"name": "toto", "note": 12}
     @PostMapping("/increment")
     public StudentBean increment(@RequestBody StudentBean student) {
         System.out.println("/increment : " + student.getName() + " : " + student.getNote());
 
-        student.setNote(student.getNote() + 1);
+        student.setNote(student.getNote());
 
         return student;
     }
