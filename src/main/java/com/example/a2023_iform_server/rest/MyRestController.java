@@ -9,6 +9,21 @@ public class MyRestController {
     int compteur = 0;
     private StudentBean saveStudent = null;
 
+    //http://localhost:8080/test
+    @GetMapping("/test")
+    public String helloworld() {
+        System.out.println("/test");
+        compteur++;
+        return "helloworld +" + compteur;
+    }
+
+//    //http://localhost:8080/testPrivate
+//    @GetMapping("/testPrivate")
+//    public String testPrivate(Authentication authentification) {
+//        System.out.println("/testPrivate");
+//        return "testPrivate " + authentification.getName() + " " + authentification.getDetails();
+//    }
+
     /* -------------------------------- */
     // EXO POST
     /* -------------------------------- */
@@ -19,7 +34,7 @@ public class MyRestController {
     public StudentBean increment(@RequestBody StudentBean student) {
         System.out.println("/increment : " + student.getName() + " : " + student.getNote());
 
-        student.setNote(student.getNote() +1);
+        student.setNote(student.getNote() + 1);
 
         return student;
     }
@@ -61,14 +76,6 @@ public class MyRestController {
     /* -------------------------------- */
     // Exo GET
     /* -------------------------------- */
-
-    //http://localhost:8080/test
-    @GetMapping("/test")
-    public String helloworld() {
-        System.out.println("/test");
-        compteur++;
-        return "helloworld +" + compteur;
-    }
 
 
     //http://localhost:8080/boulangerie?nbCroissant=3&nbSandwich=1
