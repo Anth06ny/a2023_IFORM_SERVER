@@ -32,9 +32,9 @@ public class MyRestController {
 //Json Attendu : {"name": "toto", "note": 12}
     @PostMapping("/increment")
     public StudentBean increment(@RequestBody StudentBean student) {
-        System.out.println("/increment : " + student.getName() + " : " + student.getNote());
+        System.out.println("/increment : " + student.getName() + " : " + student.getOld());
 
-        student.setNote(student.getNote() + 1);
+        student.setOld(student.getOld() + 1);
 
         return student;
     }
@@ -43,7 +43,7 @@ public class MyRestController {
 //Json Attendu : {"name": "toto", "note": 12}
     @PostMapping("/receiveStudent")
     public void receiveStudent(@RequestBody StudentBean student) {
-        System.out.println("/receiveStudent : " + student.getName() + " : " + student.getNote());
+        System.out.println("/receiveStudent : " + student.getName() + " : " + student.getOld());
 
         //traitement, mettre en base…
         //Retourner d'autres données

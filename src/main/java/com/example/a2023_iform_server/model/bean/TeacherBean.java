@@ -15,6 +15,10 @@ public class TeacherBean {
     public TeacherBean() {
     }
 
+    public TeacherBean(long id) {
+        this.id = id;
+    }
+
     public TeacherBean(long id, String name, Integer code) {
         this.id = id;
         this.name = name;
