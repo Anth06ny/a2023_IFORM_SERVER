@@ -52,7 +52,7 @@ public class MyController {
     }
 
     @GetMapping("/listStudent")
-    public String listStudent(Model model, HttpSession sessionId) {
+    public String listStudent(Model model) {
         System.out.println("/listStudent");
 
         model.addAttribute("studentList", studentService.getAll());
