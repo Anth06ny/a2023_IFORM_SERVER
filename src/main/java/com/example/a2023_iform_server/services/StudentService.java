@@ -32,14 +32,18 @@ public class StudentService {
         return repository.findByNameLikeIgnoreCaseAndOld(name, old);
     }
 
-    public StudentBean create(String name, int old, Long teacherId) throws Exception {
-        StudentBean studentBean = new StudentBean(name, old);
-
+    public StudentBean create(StudentBean studentBean, Long teacherId) {
         studentBean.setTeacher(teacherRepo.findById(teacherId).orElse(null));
-
         repository.save(studentBean);
-
         return studentBean;
+    }
+
+    public StudentBean create(StudentBean studentBean) {
+        return create(studentBean, 0L);
+    }
+
+    public StudentBean create(String name, int old, Long teacherId) {
+        return create(new StudentBean(name, old), teacherId);
     }
 
     public StudentBean getById(Long id) {

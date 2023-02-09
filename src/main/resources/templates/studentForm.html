@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Thymeleaf Example</title>
+    <link href="/css/main.css" rel="stylesheet"/>
+</head>
+<body>
+<h2 th:text="${errorMessage}"></h2>
+
+<form action="/formSubmit" method="post" th:object="${studentBean}">
+
+    <p>Name: <input th:field="*{name}" type="text"/></p>
+    <p>Age: <input th:field="*{old}" type="number"/></p>
+
+    <p><input type="submit" value="Submit"/></p>
+</form>
+
+
+</body>
+</html>
