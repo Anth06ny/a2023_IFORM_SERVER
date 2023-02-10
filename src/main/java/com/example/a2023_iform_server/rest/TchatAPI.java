@@ -1,11 +1,15 @@
 package com.example.a2023_iform_server.rest;
 
+import com.example.a2023_iform_server.model.bean.ErrorBean;
 import com.example.a2023_iform_server.model.bean.MessageBean;
 import com.example.a2023_iform_server.services.MessageService;
+import com.example.a2023_iform_server.tpformulaire.UserBean;
+import com.example.a2023_iform_server.tpformulaire.UserService;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,12 +31,42 @@ public class TchatAPI {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private UserService userService;
 
-    //http://localhost:8080/tchat/saveMessage
+    @Autowired
+    private HttpSession httpSession;
+
+    @PostMapping("/connect")
+    public Object connect(@RequestBody UserBean userBean, HttpServletResponse response) {
+        System.out.println("/connect");
+
+        try {
+            UserBean user = userService.checkOrInsert(userBean, httpSession);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setStatus(514);
+            return new ErrorBean(e.getMessage());
+        }
+        return null;
+    }
+
+//    @PostMapping("/register")
+//    public void register(@RequestBody UserBean userBean){
+//        System.out.println("/register");
+//
+//
+//    }
+
+
+    //http://localhost:8080/tchat/saveMessage?id=pikjceapiojcapijce
     //Json Attendu : {"pseudo": "toto", "message": "coucou"}
     @PostMapping("/saveMessage")
     public void saveMessage(@RequestBody MessageBean messageBean) throws Exception {
         System.out.println("/saveMessage message:" + messageBean);
+
+        UserBean userBean = userService.getUserByIdSession(httpSession.getId());
+
         messageService.addMessage(messageBean);
     }
 
@@ -42,7 +76,7 @@ public class TchatAPI {
         System.out.println("/allMessages  ");
 
         //Tous les messages
-       // messageService.getAllMessage();
+        // messageService.getAllMessage();
 
         return messageService.last10Message();
     }
@@ -69,7 +103,6 @@ public class TchatAPI {
 //
 //        return toSend;
 //    }
-
 
 
 }

@@ -27,6 +27,11 @@ public class UserController {
     public String login(UserBean userBean) {
         System.out.println("/login");
 
+        UserBean userRegister = userService.getUserByIdSession(httpSession.getId());
+        if(userRegister != null){
+            return "redirect:/user/userregister";
+        }
+
         //Lance studentForm.html
         return "tpformulaire/login";
     }
@@ -52,8 +57,15 @@ public class UserController {
 
     //http://localhost:8080/user/userregister
     @GetMapping("/userregister")
-    public String userregister () {
+    public String userregister (Model model) {
         System.out.println("/userregister");
+
+        UserBean userConnected = userService.getUserByIdSession(httpSession.getId());
+        if(userConnected == null){
+            return "redirect:/user/login";
+        }
+        model.addAttribute("userConnected", userConnected);
+        model.addAttribute("userList", userService.getAll());
 
         //Lance studentForm.html
         return "tpformulaire/userregister";
