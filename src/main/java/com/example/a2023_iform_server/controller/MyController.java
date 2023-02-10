@@ -2,6 +2,8 @@ package com.example.a2023_iform_server.controller;
 
 import com.example.a2023_iform_server.model.bean.StudentBean;
 import com.example.a2023_iform_server.services.StudentService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +21,18 @@ public class MyController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private HttpSession session;
+
+
     /* -------------------------------- */
     // Exo formulaire
     /* -------------------------------- */
     //http://localhost:8080/form
     @GetMapping("/form")
-    public String showForm(StudentBean studentBean) {
-        System.out.println("/form");
+    public String showForm(StudentBean studentBean, HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("/form idSession=" + session.getId());
+
         //Lance studentForm.html
         return "studentForm";
     }
@@ -54,6 +61,7 @@ public class MyController {
     @GetMapping("/listStudent")
     public String listStudent(Model model) {
         System.out.println("/listStudent");
+
 
         model.addAttribute("studentList", studentService.getAll());
 

@@ -3,6 +3,7 @@ package com.example.a2023_iform_server.services;
 import com.example.a2023_iform_server.model.bean.StudentBean;
 import com.example.a2023_iform_server.model.repository.StudentRepository;
 import com.example.a2023_iform_server.model.repository.TeacherRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,12 @@ public class StudentService {
     @Autowired
     private TeacherRepository teacherRepo;
 
+
     public List<StudentBean> getAll() {
+
+        System.out.println("StudentService");
+
+
         return repository.findAll();
     }
 
